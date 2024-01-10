@@ -1,26 +1,14 @@
-function plus() {
-  return { type: "plus" };
+function changeInp(e) {
+  return {type: 'change', payload: e.target.value}
 }
-function minus() {
-  return { type: "minus" };
+function addProduct() {
+  return {type: 'add'}
 }
-function plus2() {
-  return { type: "plus2" };
+function changeCount(type, i){
+  return {type: type,payload: i}
 }
-function minus2() {
-  return { type: "minus2" };
+function deleteItem(i) {
+  return {type: 'delete',payload: i}
 }
-function ch(e) {
-  return { type: "h1", payload: e.target.value };
-}
-function iso() {
-  return { type: "open" };
-}
-function tab(data) {
-  return { type: "tab", payload: data };
-}
-function repeat(e) {
-  return { type: "rep", payload: e.target.value };
-}
-const actions = { plus, minus, plus2, minus2, ch, iso, tab, repeat };
+const actions = { changeInp, addProduct, changeCount, deleteItem };
 export default actions;
