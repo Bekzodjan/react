@@ -1,14 +1,31 @@
 function changeInp(e) {
-  return {type: 'change', payload: e.target.value}
+  return { type: "change", payload: e.target.value };
 }
-function addProduct() {
-  return {type: 'add'}
+function add() {
+  return { type: "add" };
 }
-function changeCount(type, i){
-  return {type: type,payload: i}
+function changeStatus(i) {
+  return { type: "changeStatus", payload: i };
 }
-function deleteItem(i) {
-  return {type: 'delete',payload: i}
+function changeStatus2(i) {
+  return { type: "changeStatus2", payload: i };
 }
-const actions = { changeInp, addProduct, changeCount, deleteItem };
+function clearAll() {
+  return { type: "clear" };
+}
+function deleteAll() {
+  return { type: "delete" };
+}
+function edit(e) {
+  return { type: "edit", payload: e };
+}
+const actions = {
+  changeInp,
+  add,
+  changeStatus,
+  changeStatus2,
+  clearAll,
+  deleteAll,
+  edit,
+};
 export default actions;

@@ -3,37 +3,63 @@ import { createStore } from "redux";
 function reducer(state, { type, payload }) {
   switch (type) {
     case "change":
-      state.productObj = { ...state.productObj, name: payload, count: 1 };
+      state.taskObj = { ...state.taskObj, name: payload, active: true };
       break;
     case "add":
-      state.products.push(state.productObj);
-      state.products = [...state.products];
-      console.log(state.products);
-      break;
-    case "plus":
-      state.products[payload].count = state.products[payload].count+1;
-      console.log(state.products[payload]);
-      state.products = [...state.products];
-      break;
-    case "minus":
-      if (state.products[payload].count > 1) {
-        state.products[payload].count--;
+      if (state.current === "") {
+        state.tasks.push(state.taskObj);
+      } else {
+        state.tasks[state.current] = state.taskObj;
       }
-      console.log(state.products[payload]);
-      state.products = [...state.products];
+      state.current = "";
+      state.tasks = [...state.tasks];
       break;
-    case 'delete':
-      state.products.splice(payload,1)
-      state.products = [...state.products];
-
+    case "changeStatus":
+      state.tasks[payload].active = !state.tasks[payload].active;
+      // state.delTasks.push(...state.tasks.splice(payload,1))
+      state.tasks.filter((itm, i) => {
+        if (!itm.active) {
+          state.delTasks.push(...state.tasks.splice(i, 1));
+        }
+      });
+      state.tasks = [...state.tasks];
+      state.delTasks = [...state.delTasks];
+      break;
+    case "changeStatus2":
+      state.delTasks[payload].active = !state.delTasks[payload].active;
+      // state.delTasks.push(...state.tasks.splice(payload,1))
+      state.delTasks.filter((itm, i) => {
+        if (itm.active) {
+          state.tasks.push(...state.delTasks.splice(i, 1));
+        }
+      });
+      state.tasks = [...state.tasks];
+      state.delTasks = [...state.delTasks];
+      break;
+    case "clear":
+      state.tasks.map((itm) => ({ ...itm, active: !itm.active }));
+      state.delTasks.push(...state.tasks.splice(0));
+      state.tasks = [...state.tasks];
+      state.delTasks = [...state.delTasks];
+      break;
+    case "delete":
+      state.delTasks.splice(0);
+      state.tasks = [...state.tasks];
+      state.delTasks = [...state.delTasks];
+      break;
+    case "edit":
+      state.taskObj = { ...state.taskObj, name: state.tasks[payload].name };
+      state.current = payload;
   }
 
   return { ...state };
 }
 
 const store = createStore(reducer, {
-  productObj: {},
-  products: [],
+  taskObj: {},
+  tasks: [],
+  delTasks: [],
+  current: "",
 });
 
 export default store;
