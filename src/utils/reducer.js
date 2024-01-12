@@ -23,7 +23,7 @@ const boboF = (store)=>(next)=>(actions)=>{
 
 const store = createStore(reducer, {
   count: 0
-},applyMiddleware());
+},applyMiddleware(boboF));
 
 store.dispatch({type: "plus"})
 store.dispatch({type: "plus"})
