@@ -1,35 +1,26 @@
-import { applyMiddleware, createStore } from "redux";
+import logger from "redux-logger";
+import { applyMiddleware, combineReducers, createStore } from "redux";
+import todoReducer from "./TodoReducer";
 
-function reducer(state, { type, payload }) {
-  switch (type) {
-    case 'plus':
-      state.count++
-      break
-    case 'minus':
-      state.count--
-      break
-  }
-
-  return { ...state };
-}
-
-const boboF = (store)=>(next)=>(actions)=>{
+const log = (store) => (next) => (action) => {
+  console.group(
+    `%c-------------------------------
+logger
+-------------------------------`,
+    "color: red; font-size: 20px;"
+  );
   console.log(store.getState());
-  console.log(actions);
-  next(actions)
+
+  console.log(action);
+  next(action);
   console.log(store.getState());
-  console.log('______________');
-}
+  console.groupEnd();
+  console.log("-------------------------------");
+};
 
-const store = createStore(reducer, {
-  count: 0
-},applyMiddleware(boboF));
-
-store.dispatch({type: "plus"})
-store.dispatch({type: "plus"})
-store.dispatch({type: "plus"})
-store.dispatch({type: "plus"})
-store.dispatch({type: "plus"})
-store.dispatch({type: "minus"})
+const store = createStore(
+  combineReducers({ todoReducer }),
+  applyMiddleware(logger)
+);
 
 export default store;

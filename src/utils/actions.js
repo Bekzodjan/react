@@ -1,31 +1,39 @@
-function changeInp(e) {
+function change(e) {
   return { type: "change", payload: e.target.value };
+}
+function changeE(e, i) {
+  return { type: "changeE", payload: { name: e.target.value, i } };
+}
+function addE(i) {
+  return { type: "addE", payload: i };
 }
 function add() {
   return { type: "add" };
 }
-function changeStatus(i) {
-  return { type: "changeStatus", payload: i };
+function deleteI(i) {
+  return { type: "del", payload: i };
 }
-function changeStatus2(i) {
-  return { type: "changeStatus2", payload: i };
-}
-function clearAll() {
+function clear() {
   return { type: "clear" };
 }
-function deleteAll() {
-  return { type: "delete" };
+function check(i) {
+  return { type: "check", payload: i };
 }
-function edit(e) {
-  return { type: "edit", payload: e };
+function order(e) {
+  return { type: "order", payload: e.target.value };
+}
+function search(e) {
+  return { type: "search", payload: e.target.value };
 }
 const actions = {
-  changeInp,
   add,
-  changeStatus,
-  changeStatus2,
-  clearAll,
-  deleteAll,
-  edit,
+  addE,
+  changeE,
+  change,
+  deleteI,
+  clear,
+  check,
+  order,
+  search,
 };
 export default actions;
