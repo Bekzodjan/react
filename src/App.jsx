@@ -41,7 +41,7 @@ export const App = (props) => {
           </div>
         ))}
         {
-          props.todos.length>0&&<button onClick={props.clear} className="btn btn-success">Clear checked items</button>
+          props.todos.length>0&&<button onClick={props.clear} className="btn btn-success">Clear items</button>
         }
       </div>
       <h4>New task</h4>
